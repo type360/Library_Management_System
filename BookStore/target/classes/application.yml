@@ -1,0 +1,42 @@
+server:
+  port: 9999
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/briup
+    username: briup
+    password: briup
+  #mvc路径匹配策略
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis:
+  configuration:
+    #日志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启驼峰
+    map-underscore-to-camel-case: true
+  # mapper.xml 文件夹所在位置
+  mapper-locations: classpath:mapper/**/*.xml
+
+#配置slf4j日志输出级别
+logging:
+  #配置本地日志文件
+#  file:
+#    name: log.txt
+  #配置slf4日志输出级别：debug、info、warn、error
+  level:
+    #com.briup包下日志输出级别为info
+    com.briup: info
+
+oss:
+  accessKey: CMuhMW_n-d5xDON3S-I6T0A8TUNbQhXs2N1_s31b
+  secretKey: __mT6-qja9ZFPHqY4iAJW3XjdtNKnjs8ZAdt9d4m
+  bucket: 602-briup
+  baseUrl: http://t440oli8v.hn-bkt.clouddn.com/
