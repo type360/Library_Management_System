@@ -22,47 +22,30 @@ import java.util.UUID;
 @RestController
 @RequestMapping("token")
 public class TokenController {
-    @GetMapping("add")
-    public String addToken(){
-//        return UUID.randomUUID().toString();
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId",1);
-        String token = JwtUtil.generateJwt(claims);
-        return token;
-    }
-    @GetMapping("get")
-    public String getToken(HttpServletRequest request){
-        String token = request.getHeader("token");
-        if(!StringUtils.hasText(token)){
-            return "未登录";
-        }
-        // 可能过期 可能篡改
-        try {
-            Claims claims = JwtUtil.parseJWT(token);
-            Object o = claims.get("userId");
-            System.out.println("o = " + o);
-        } catch (Exception e) {
-            throw new ServiceException(ResultCode.TOKEN_INVALID);
-//            return "登录失败";
-        }
-        return "请求成功";
-    }
-
-    @GetMapping("get1")
-    public String getToken2(HttpServletRequest request){
-        String token = request.getHeader("token");
-        if(!StringUtils.hasText(token)){
-            return "未登录";
-        }
-        // 可能过期 可能篡改
-        try {
-            Claims claims = JwtUtil.parseJWT(token);
-            Object o = claims.get("userId");
-            System.out.println("o = " + o);
-        } catch (Exception e) {
-            throw new ServiceException(ResultCode.TOKEN_INVALID);
-//            return "登录失败";
-        }
-        return "请求成功";
-    }
+   @GetMapping("add")
+    public String addToken() {
+//       return UUID.randomUUID().toString();
+       Map<String, Object> claims = new HashMap<>();
+       claims.put("userId", 1);
+       String token = JwtUtil.generateJwt(claims).toString();
+       return token;
+   }
+   @GetMapping("get")
+    public String getToken(HttpServletRequest request) {
+       String token = request.getHeader("token");
+       if (!StringUtils.hasText(token)) {
+           return "未登录";
+       }
+       //可能过期 可能篡改
+       try {
+           Claims claims = JwtUtil.parseJWT(token);//解密token获取载荷内容
+           Object o = claims.get("userId");
+           System.out.println("o = "+ o);
+       } catch (Exception e) {
+           throw new ServiceException(ResultCode.TOKEN_INVALID);//在自定义异常中可以自己写一个
+//           return "登陆失败";
+       }
+       return "请求成功";
+   }
 }
+//我不能进入一个服务集群后在每个服务中都做一次校验，所以我们要把这个功能添加到全局的拦截器那里。

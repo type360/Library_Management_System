@@ -10,6 +10,7 @@ import com.briup.pojo.vo.UserPageVO;
 import com.briup.response.ResultCode;
 import com.briup.service.UserService;
 import com.briup.utils.BeanCopyUtils;
+import com.briup.utils.JwtUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -18,7 +19,9 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
      * @return user
      */
     @Override
-    public User login(UserLogin userLogin) {
+    public String login(UserLogin userLogin) {
         //判断用户名和密码是否存在值(参数校验)
         if (userLogin == null
                 || !StringUtils.hasText(userLogin.getUsername())
@@ -53,7 +56,13 @@ public class UserServiceImpl implements UserService {
         if (user.getStatus() == 1) {
             throw new ServiceException(ResultCode.USER_ACCOUNT_FORBIDDEN);
         }
-        return user;
+
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id",user.getId());
+        claims.put("username", user.getUsername());
+        String token = JwtUtil.generateJwt(claims);
+        return token;
     }
 
     /**

@@ -14,7 +14,7 @@ public interface UserService {
 	 * @param user 登录用户参数对象
 	 * @return user
 	 */
-	User login(UserLogin user);
+	String login(UserLogin user);
 
 	/**
 	 * 分页多条件查询用户信息

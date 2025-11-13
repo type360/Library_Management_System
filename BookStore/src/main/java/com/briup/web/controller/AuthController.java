@@ -23,7 +23,7 @@ public class AuthController {
 
 	@ApiOperation("用户登录")
 	@PostMapping("/login")
-	public Result<User> login(@RequestBody UserLogin user) {
+	public Result login(@RequestBody UserLogin user) {
 		log.info("用户登录:{}", user);
 		return Result.success(userService.login(user));
 	}
