@@ -55,4 +55,12 @@ public class JwtUtil {
 
         return userId;
     }
+    public static String getUsername(String jwt) {
+        Claims claims = parseJWT(jwt);
+        //Map<String, Object> map = claims;
+
+        String usenrmae= (String) claims.get("username");
+
+        return usenrmae;
+    }
 }

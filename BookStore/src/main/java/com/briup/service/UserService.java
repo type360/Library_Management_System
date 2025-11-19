@@ -14,7 +14,7 @@ public interface UserService {
 	 * @param user 登录用户参数对象
 	 * @return user
 	 */
-	User login(UserLogin user);
+	String login(UserLogin user);
 
 	/**
 	 * 分页多条件查询用户信息
@@ -30,5 +30,7 @@ public interface UserService {
 	 */
 	void deleteUsers(List<Integer> ids);
 
-    void addUser(UserBaseDto userBaseDto);
+    void addUser(UserBaseDto userBaseDto) throws Exception;
+
+	User getUserByUsername(String username);
 }

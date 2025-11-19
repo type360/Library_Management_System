@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.briup</groupId>
+        <artifactId>Library_Management_System</artifactId>
+        <version>1.0.0</version>
     </parent>
     <groupId>com.briup</groupId>
     <artifactId>BookStore</artifactId>
@@ -19,7 +18,7 @@
         <mybatis.version>2.3.1</mybatis.version>
         <mysql.version>8.0.31</mysql.version>
         <druid.version>1.2.18</druid.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <knife4j.version>3.0.3</knife4j.version>
         <pagehelper.version>1.4.7</pagehelper.version>
     </properties>

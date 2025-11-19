@@ -1,14 +1,33 @@
 package com.briup.config;
 
+import com.briup.web.interceptor.LoginCheckInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 跨域配置类
+ * springmvc配置类
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    // 添加拦截器
+    @Autowired
+    private LoginCheckInterceptor loginCheckInterceptor;
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginCheckInterceptor)
+                // 所有资源都要拦截
+                .addPathPatterns("/**")
+                // 哪些资源不需要拦截【不要登录也能访问，不走拦截器】
+                .excludePathPatterns(
+                        "/login",
+                        "/doc.html","/v2/api-docs",
+                        "/webjars/**","/swagger-resources","/error",
+                        "/favicon.ico");
+    }
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

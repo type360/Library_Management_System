@@ -1,10 +1,12 @@
 package com.briup.web.controller;
 
+import com.briup.pojo.User;
 import com.briup.pojo.dto.UserBaseDto;
 import com.briup.pojo.dto.UserPageDto;
 import com.briup.pojo.vo.UserPageVO;
 import com.briup.response.Result;
 import com.briup.service.UserService;
+import com.briup.utils.JwtUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,12 +45,20 @@ public class UserController {
 
     @ApiOperation("新增用户")
     @PostMapping //UserBaseDao封装了常用属性， base中已提供
-        // DTO 数据传输对象 接受参数
-        // vo 视图对象 返回数据
-    public Result<String> addUser(@RequestBody UserBaseDto userBaseDto) {
+    // DTO 数据传输对象 接受参数
+    // vo 视图对象 返回数据
+    public Result<String> addUser(@RequestBody UserBaseDto userBaseDto) throws Exception {
         log.info("开始新增用户:{}", userBaseDto);
         userService.addUser(userBaseDto);
         return Result.success("新增成功");
+    }
+
+    @GetMapping("getUserInfo")
+    public Result getUserInfo(@RequestHeader("token") String token) {
+        String username = JwtUtil.getUsername(token);
+        User user = userService.getUserByUsername(username);
+        user.setPassword(null);
+        return Result.success(user);
     }
 
 }

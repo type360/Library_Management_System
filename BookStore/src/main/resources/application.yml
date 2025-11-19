@@ -34,6 +34,7 @@ logging:
   level:
     #com.briup包下日志输出级别为info
     com.briup: info
+    org.springframework.jdbc.support.JdbcTransactionManager:debug
 
 oss:
   accessKey: CMuhMW_n-d5xDON3S-I6T0A8TUNbQhXs2N1_s31b
